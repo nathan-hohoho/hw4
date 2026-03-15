@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hw4-travel-log # You can change this name
+    env: ruby
+    buildCommand: "bundle install; bundle exec rails assets:precompile; bundle exec rails db:migrate"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
