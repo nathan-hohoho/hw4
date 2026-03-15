@@ -4,10 +4,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new
-    @user["username"] = params["username"]
-    @user["email"] = params["email"]
-    @user["password"] = params["password"]
+    @user["username"] = params["user"]["username"]
+    @user["email"] = params["user"]["email"]
+    # Bcrypt handles the encryption automatically because of has_secure_password
+    @user["password"] = params["user"]["password"] 
     @user.save
-    redirect_to "/"
+
+    # LOG THE USER IN: This is the missing piece!
+    session["user_id"] = @user.id
+
+    flash["notice"] = "Thanks for signing up, #{@user["username"]}!"
+    redirect_to "/places"
   end
 end
