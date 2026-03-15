@@ -6,7 +6,15 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find_by({ "id" => params["id"] })
-    @entries = Entry.where({ "place_id" => @place["id"] })
+    if @current_user
+      @entries = Entry.where({ 
+        "place_id" => @place["id"], 
+        "user_id" => @current_user.id 
+      })
+    else
+      # Optional: if not logged in, they shouldn't see any entries
+      redirect_to "/login"
+  end
   end
 
   def new
