@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
       # 4. If unsuccessful, send them back to the login page
       flash["notice"] = "Invalid email or password."
       redirect_to "/login"
+    end
   end
 
   def destroy
